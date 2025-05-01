@@ -96,8 +96,8 @@ const font: Font = new opentype.Font({
     familyName: "BinarySquares",
     styleName: "Regular",
     unitsPerEm: totalHeight / 2,
-    ascender: totalHeight,
-    descender: 0,
+    ascender: totalHeight * 0.8,
+    descender: -totalHeight * 0.2,
     glyphs
 });
 
