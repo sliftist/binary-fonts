@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @font-face {
+            font-family: 'BinarySquares';
+            src: url('BinarySquares.ttf') format('truetype');
+        }
+        .binary-font {
+            font-family: 'BinarySquares', monospace;
+            font-size: 16px;
+            line-height: 2.5;  /* Give more vertical space for the squares */
+        }
+        .example {
+            margin: 20px;
+        }
+        .explanation {
+            font-family: monospace;
+            margin-top: 10px;
+        }
+        #status {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            z-index: 1000;
+        }
+        .connected {
+            background-color: #e6ffe6;
+            color: #006600;
+        }
+        .disconnected {
+            background-color: #ffe6e6;
+            color: #660000;
+        }
+        .building {
+            background-color: #fff3e6;
+            color: #663300;
+        }
+    </style>
+</head>
+<body>
+    <div class="example">
+        <div>
+            1 = <span class="binary-font">A</span>,
+            2 = <span class="binary-font">B</span>,
+            3 = <span class="binary-font">C</span>,
+            4 = <span class="binary-font">D</span>,
+            5 = <span class="binary-font">E</span>,
+            6 = <span class="binary-font">F</span>,
+            7 = <span class="binary-font">G</span>,
+            8 = <span class="binary-font">H</span>,
+            9 = <span class="binary-font">I</span>,
+            10 = <span class="binary-font">J</span>,
+            11 = <span class="binary-font">K</span>,
+            12 = <span class="binary-font">L</span>,
+            13 = <span class="binary-font">M</span>,
+            14 = <span class="binary-font">N</span>,
+            15 = <span class="binary-font">O</span>,
+            16 = <span class="binary-font">P</span>,
+            17 = <span class="binary-font">Q</span>,
+            18 = <span class="binary-font">R</span>,
+            19 = <span class="binary-font">S</span>,
+            20 = <span class="binary-font">T</span>,
+            21 = <span class="binary-font">U</span>,
+            22 = <span class="binary-font">V</span>,
+            23 = <span class="binary-font">W</span>,
+            24 = <span class="binary-font">X</span>,
+            25 = <span class="binary-font">Y</span>,
+            26 = <span class="binary-font">Z</span>
+        </div>
+    </div>
+
+    <div class="example">
+        <h3>Alphabet</h3>
+        <div class="binary-font">ABCDEFGHIJKLMNOPQRSTUVWXYZ</div>
+        <div class="explanation">
+            ABCDEFGHIJKLMNOPQRSTUVWXYZ
+        </div>
+        <div class="binary-font">
+            The dark cave surrounded by darkness had a sense of inviting. As if it was waiting for someone to come and explore it. The walls were covered in moss and the air was damp.
+        </div>
+    </div>
+
+    <script>
+        const WS_PORT = 3333;
+        const statusDiv = document.getElementById("status");
+        let reconnectTimeout;
+
+        function connect() {
+            const ws = new WebSocket(`ws://localhost:${WS_PORT}`);
+
+            ws.onclose = () => {
+                // Try to reconnect after 2 seconds
+                clearTimeout(reconnectTimeout);
+                reconnectTimeout = setTimeout(connect, 2000);
+            };
+
+            ws.onmessage = (event) => {
+                location.reload();
+            };
+        }
+
+        // Start connection
+        connect();
+    </script>
+</body>
+</html>
